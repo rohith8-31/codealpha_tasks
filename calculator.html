@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .display {
+            width: 100%;
+            height: 70px;
+            font-size: 36px;
+            text-align: right;
+            background-color: #eee;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .button-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            height: 70px;
+            font-size: 28px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: #333;
+        }
+
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        .button:active {
+            background-color: #ccc;
+        }
+
+        .button-operator {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-operator:hover {
+            background-color: #45a049;
+        }
+
+        .button-clear {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button-clear:hover {
+            background-color: #e53935;
+        }
+
+        .button-equal {
+            background-color: #2196F3;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .button-equal:hover {
+            background-color: #0b7dda;
+        }
+
+        .extra-operators {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .extra-operators button {
+            height: 70px;
+            font-size: 28px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .extra-operators button:hover {
+            background-color: #ddd;
+            transform: scale(1.1);
+        }
+
+        .extra-operators button:active {
+            background-color: #ccc;
+            transform: scale(1);
+        }
+
+        /* Apply color for operators */
+        .button-percent {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .button-percent:hover {
+            background-color: #FB8C00;
+        }
+
+        .button-sqrt {
+            background-color: #9C27B0;
+            color: white;
+        }
+
+        .button-sqrt:hover {
+            background-color: #8E24AA;
+        }
+
+        .button-exponent {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .button-exponent:hover {
+            background-color: #FB8C00;
+        }
+
+        @media (max-width: 480px) {
+            .display {
+                font-size: 28px;
+            }
+
+            .button {
+                font-size: 24px;
+            }
+
+            .button-equal {
+                font-size: 24px;
+            }
+
+            .extra-operators button {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <!-- Display -->
+    <input type="text" class="display" id="display" disabled>
+
+    <!-- Button Rows -->
+    <div class="button-row">
+        <button class="button button-clear" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="appendToDisplay('(')">(</button>
+        <button class="button" onclick="appendToDisplay(')')">)</button>
+        <button class="button button-operator" onclick="appendToDisplay('/')">/</button>
+    </div>
+    <div class="button-row">
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button button-operator" onclick="appendToDisplay('*')">*</button>
+    </div>
+    <div class="button-row">
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button button-operator" onclick="appendToDisplay('-')">-</button>
+    </div>
+    <div class="button-row">
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button button-operator" onclick="appendToDisplay('+')">+</button>
+    </div>
+    <div class="button-row">
+        <button class="button button-equal" onclick="calculateResult()">=</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+    </div>
+
+    <!-- Extra Operators -->
+    <div class="extra-operators">
+        <button class="button button-percent" onclick="appendToDisplay('%')">%</button>
+        <button class="button button-sqrt" onclick="appendToDisplay('sqrt(')">√</button>
+        <button class="button button-exponent" onclick="appendToDisplay('^')">^</button>
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+
+    // Append clicked button value to the display
+    function appendToDisplay(value) {
+        currentInput += value;
+        display.value = currentInput;
+    }
+
+    // Clear the display
+    function clearDisplay() {
+        currentInput = '';
+        display.value = '';
+    }
+
+    // Calculate the result of the expression
+    function calculateResult() {
+        try {
+            if (currentInput === '' || currentInput === '.') {
+                throw 'Invalid input';
+            }
+
+            // Handle mathematical operations
+            currentInput = currentInput.replace(/sqrt/g, 'Math.sqrt'); // Square root
+            currentInput = currentInput.replace(/\^/g, '**'); // Exponentiation
+            currentInput = currentInput.replace(/%/g, '/100'); // Percentage
+
+            // Evaluate the expression
+            display.value = eval(currentInput);
+            currentInput = display.value; // Save result for further calculation
+        } catch (error) {
+            display.value = 'Error';
+            currentInput = '';
+        }
+    }
+
+    // Keyboard Support
+    document.addEventListener('keydown', function(event) {
+        if (event.key >= 0 && event.key <= 9) {
+            appendToDisplay(event.key);
+        } else if (['+', '-', '*', '/', '(', ')', '.', '%', '^', 's'].includes(event.key)) {
+            appendToDisplay(event.key);
+        } else if (event.key === 'Backspace') {
+            currentInput = currentInput.slice(0, -1);
+            display.value = currentInput;
+        } else if (event.key === 'Enter') {
+            calculateResult();
+        } else if (event.key === 'Escape') {
+            clearDisplay();
+        }
+    });
+</script>
+
+</body>
+</html>

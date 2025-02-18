@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Image Gallery</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f8ff, #d3e4f2); /* Soft gradient from light blue to light gray */
+            color: #333; /* Dark text color for better readability */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-container {
+            max-width: 800px;
+            margin: 30px auto;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background-color: white;
+            padding: 10px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 10px;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .gallery img.active {
+            display: block;
+            opacity: 1;
+        }
+        .caption {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            margin-top: 10px;
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background-color: #2575fc;
+        }
+    </style>
+</head>
+<body>
+<h1>Beautiful Image Gallery</h1>
+<div class="gallery-container">
+    <button class="nav-button prev" onclick="changeImage(-1)">&#10094;</button>
+    <div class="gallery">
+        <img src="https://www.w3schools.com/w3images/lights.jpg" class="active" alt="City Lights">
+        <img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature Landscape">
+        <img src="https://www.w3schools.com/w3images/mountains.jpg" alt="Majestic Mountains">
+        <img src="https://www.w3schools.com/w3images/forest.jpg" alt="Serene Forest">
+        <img src="https://www.w3schools.com/w3images/ocean.jpg" alt="Blue Ocean">
+    </div>
+    <p class="caption">City Lights</p>
+    <button class="nav-button next" onclick="changeImage(1)">&#10095;</button>
+</div>
+<div class="dots">
+    <span class="dot active" onclick="goToImage(0)"></span>
+    <span class="dot" onclick="goToImage(1)"></span>
+    <span class="dot" onclick="goToImage(2)"></span>
+    <span class="dot" onclick="goToImage(3)"></span>
+    <span class="dot" onclick="goToImage(4)"></span>
+</div>
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll(".gallery img");
+    const caption = document.querySelector(".caption");
+    const dots = document.querySelectorAll(".dot");
+    const captions = ["City Lights", "Nature Landscape", "Majestic Mountains", "Serene Forest", "Blue Ocean"];
+
+    function changeImage(direction) {
+        images[currentIndex].classList.remove("active");
+        dots[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        images[currentIndex].classList.add("active");
+        dots[currentIndex].classList.add("active");
+        caption.textContent = captions[currentIndex];
+    }
+
+    function goToImage(index) {
+        images[currentIndex].classList.remove("active");
+        dots[currentIndex].classList.remove("active");
+        currentIndex = index;
+        images[currentIndex].classList.add("active");
+        dots[currentIndex].classList.add("active");
+        caption.textContent = captions[currentIndex];
+    }
+</script>
+</body>
+</html>
