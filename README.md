@@ -1,6 +1,22 @@
 # codealpha_tasks
 
-#1.Image Gallery
+#1.Music Player Web App
+
+A simple and responsive music player built using HTML, CSS, and JavaScript. This app allows users to play, pause, and navigate through songs, with a sleek user interface and a customizable audio control panel. The player includes a seek bar, and buttons for play/pause, previous, and next song controls.
+
+Features:
+
+Play/Pause functionality: Toggle between play and pause.
+
+Next/Previous song navigation: Buttons to skip to the next or previous song (currently a placeholder for future functionality).
+
+Seek bar: Users can navigate through the song using a slider.
+
+Responsive design: Optimized for desktop and mobile views.
+
+Customizable song information: Displays song title and artist name.
+
+#2.Image Gallery
 
    
 This project is a simple image gallery that allows users to browse through a collection of images. Users can navigate through the images using next and previous buttons. It features:
@@ -19,7 +35,7 @@ Technologies Used:
 
 
 
-#2. Calculator
+#3. Calculator
 
 
 A functional calculator that supports basic arithmetic operations such as addition, subtraction, multiplication, and division. It includes:
