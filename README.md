@@ -1,6 +1,6 @@
 # codealpha_tasks
 
-1. Image Gallery
+#1.Image Gallery
 
    
 This project is a simple image gallery that allows users to browse through a collection of images. Users can navigate through the images using next and previous buttons. It features:
@@ -19,7 +19,7 @@ Technologies Used:
 
 
 
-2. Calculator
+#2. Calculator
 
 
 A functional calculator that supports basic arithmetic operations such as addition, subtraction, multiplication, and division. It includes:
